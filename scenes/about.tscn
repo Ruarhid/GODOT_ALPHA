@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://dseftbupsmjpw"]
+
+[ext_resource type="Script" uid="uid://dwss5wvl0hwcr" path="res://scripts/about.gd" id="1_hx3vx"]
+[ext_resource type="Script" uid="uid://321xaegb2fsy" path="res://scripts/click_button.gd" id="2_j4mam"]
+
+[node name="About" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hx3vx")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="CloseButton" type="Button" parent="MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 25
+text = "Close"
+script = ExtResource("2_j4mam")

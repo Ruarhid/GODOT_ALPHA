@@ -1,0 +1,86 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpmqwrw3jdl6r"]
+
+[ext_resource type="Script" uid="uid://bh63q0s3sjbki" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="PackedScene" uid="uid://dir0p1j5ddicb" path="res://scenes/background.tscn" id="2_bqqt6"]
+[ext_resource type="Script" uid="uid://321xaegb2fsy" path="res://scripts/click_button.gd" id="2_ekxnf"]
+
+[node name="Main_Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l6cm7")
+
+[node name="Background" parent="." instance=ExtResource("2_bqqt6")]
+layout_mode = 1
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.0
+offset_top = 100.0
+offset_right = 128.0
+offset_bottom = 213.833
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "Игра епта!!!!
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 250
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 3
+
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Play"
+script = ExtResource("2_ekxnf")
+
+[node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Options"
+script = ExtResource("2_ekxnf")
+
+[node name="AboutButton" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "About"
+script = ExtResource("2_ekxnf")
+
+[node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Exit"
+script = ExtResource("2_ekxnf")
+
+[node name="VersionLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -22.3333
+offset_right = 98.0
+grow_vertical = 0
+text = "version 0.0.0"

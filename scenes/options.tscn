@@ -1,0 +1,271 @@
+[gd_scene load_steps=4 format=3 uid="uid://bu1iy82eewhy7"]
+
+[ext_resource type="Script" uid="uid://b1kfjgcwag5hw" path="res://scripts/options_menu.gd" id="1_c2u1v"]
+[ext_resource type="PackedScene" uid="uid://dir0p1j5ddicb" path="res://scenes/background.tscn" id="2_2iy26"]
+[ext_resource type="Script" uid="uid://321xaegb2fsy" path="res://scripts/click_button.gd" id="2_yjkok"]
+
+[node name="Options" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c2u1v")
+
+[node name="Background" parent="." instance=ExtResource("2_2iy26")]
+layout_mode = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -86.0
+offset_top = 50.0
+offset_right = 86.0
+offset_bottom = 112.813
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 45
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 30
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_constants/margin_right = 150
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 4
+text = "Move Left   "
+horizontal_alignment = 1
+
+[node name="MoveLeftButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "A"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/outline_size = 4
+text = "Move Right "
+
+[node name="MoveRightButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "D"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_constants/outline_size = 4
+text = "Move Up     "
+
+[node name="MoveUpButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "W"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_constants/outline_size = 4
+text = "Move Down"
+
+[node name="MoveDownButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "S"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_constants/outline_size = 4
+text = "Jamp"
+horizontal_alignment = 1
+
+[node name="JumpButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer5"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(83, 30)
+layout_mode = 2
+text = "Space"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_constants/margin_left = 270
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer2/MarginContainer3"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="ResolutionOption" type="OptionButton" parent="MarginContainer/MarginContainer2/MarginContainer3/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="FullscreenCheck" type="CheckButton" parent="MarginContainer/MarginContainer2/MarginContainer3/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Fullscreen"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer2/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="MasterVolume" type="Label" parent="MarginContainer/MarginContainer2/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Master"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MusicVolum" type="Label" parent="MarginContainer/MarginContainer2/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Music"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SFXVolume" type="Label" parent="MarginContainer/MarginContainer2/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "SFX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer2/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="MarginContainer/MarginContainer2/HBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+
+[node name="MasterSlider" type="HSlider" parent="MarginContainer/MarginContainer2/HBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+
+[node name="SFXSlider" type="HSlider" parent="MarginContainer/MarginContainer2/HBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = 5
+
+[node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 25
+text = "Save"
+script = ExtResource("2_yjkok")
+
+[node name="DefaultButton" type="Button" parent="MarginContainer/VBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Default"
+script = ExtResource("2_yjkok")
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 25
+text = "Close"
+script = ExtResource("2_yjkok")

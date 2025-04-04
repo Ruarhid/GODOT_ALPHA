@@ -120,23 +120,6 @@ custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 text = "S"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer5"]
-layout_mode = 2
-theme_override_constants/outline_size = 4
-text = "Jamp"
-horizontal_alignment = 1
-
-[node name="JumpButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer/HBoxContainer5"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(83, 30)
-layout_mode = 2
-text = "Space"
-
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2

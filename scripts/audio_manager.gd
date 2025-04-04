@@ -12,6 +12,8 @@ func _ready() -> void:
 	music_player.bus = "Music"
 	play_background_music(load("res://assets/audio/background_menu.mp3"))
 	_initialize_sfx_pool()
+	print("Music player bus: ", music_player.bus)
+	print("SFX pool initialized with ", sfx_pool.size(), " players")
 
 func _on_sfx_finished(player: AudioStreamPlayer) -> void:
 	player.stream = null # Очистка потока после завершения
@@ -46,7 +48,8 @@ func  play_sfx(stream: AudioStream) -> void:
 	if available_player:
 		available_player.stream = stream
 		available_player.play()
-	
+		print("Playing SFX on bus: ", available_player.bus)
+
 func _initialize_sfx_pool() -> void:
 	for i in range(SFX_POOL_SIZE):
 		var sfx_player = AudioStreamPlayer.new()

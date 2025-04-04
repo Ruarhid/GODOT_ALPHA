@@ -12,6 +12,7 @@ var config: GameConfig = Settings
 
 func _ready() -> void:
 	_connect_buttons()
+	#await get_tree().create_timer(0.1).timeout # Ожидание загрузки settings
 	print("Текушая громкость Master: ", config.master_volume)
 	print("Текушая громкость Music: ", config.music_volume)
 	print("Текушая громкость SFX: ", config.sfx_volume)

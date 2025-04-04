@@ -37,8 +37,7 @@ var controls: Dictionary = {
 	"move_left": KEY_A,
 	"move_right": KEY_D,
 	"move_up": KEY_W,
-	"move_down": KEY_S,
-	"jump": KEY_SPACE
+	"move_down": KEY_S
 }
 
 func _ready() -> void:
@@ -86,8 +85,7 @@ func reset_to_default() -> void:
 	"move_left": KEY_A,
 	"move_right": KEY_D,
 	"move_up": KEY_W,
-	"move_down": KEY_S,
-	"jump": KEY_SPACE
+	"move_down": KEY_S
 	}
 	save_settings()
 

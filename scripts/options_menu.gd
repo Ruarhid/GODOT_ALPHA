@@ -14,7 +14,6 @@ class_name OptionsMenu
 @onready var move_right_button: Button = %MoveRightButton
 @onready var move_up_button: Button = %MoveUpButton
 @onready var move_down_button: Button = %MoveDownButton
-@onready var jump_button: Button = %JumpButton
 
 
 var config: GameConfig = Settings
@@ -60,7 +59,7 @@ func _connect_signals() -> void:
 	move_right_button.pressed.connect(_start_rebind.bind("move_right"))
 	move_up_button.pressed.connect(_start_rebind.bind("move_up"))
 	move_down_button.pressed.connect(_start_rebind.bind("move_down"))
-	jump_button.pressed.connect(_start_rebind.bind("jump"))
+
 
 func _load_current_settings() -> void: # Загрузка текуших настроек
 	master_slider.value = config.master_volume
@@ -74,7 +73,7 @@ func _load_current_settings() -> void: # Загрузка текуших нас�
 	move_right_button.text = OS.get_keycode_string(config.controls["move_right"])
 	move_up_button.text = OS.get_keycode_string(config.controls["move_up"])
 	move_down_button.text = OS.get_keycode_string(config.controls["move_down"])
-	jump_button.text = OS.get_keycode_string(config.controls["jump"])
+
 
 func _input(event: InputEvent) ->  void:
 	if awaiting_input != "" and event is InputEventKey and event.pressed:
@@ -91,7 +90,7 @@ func _start_rebind(action: String) -> void:
 		"move_right": move_right_button.text = "Press a key"
 		"move_up": move_up_button.text = "Press a key"
 		"move_down": move_down_button.text = "Press a key"
-		"jump": jump_button.text = "Press a key"
+
 
 func _update_button_text(action: String) -> void:
 	match  action:
@@ -99,7 +98,7 @@ func _update_button_text(action: String) -> void:
 		"move_right": move_right_button.text = OS.get_keycode_string(config.controls["move_right"])
 		"move_up": move_up_button.text = OS.get_keycode_string(config.controls["move_up"])
 		"move_down": move_down_button.text = OS.get_keycode_string(config.controls["move_down"])
-		"jump": jump_button.text = OS.get_keycode_string(config.controls["jump"])
+
 	
 
 func _on_master_changed(value: float) -> void:

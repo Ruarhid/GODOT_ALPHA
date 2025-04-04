@@ -43,16 +43,16 @@ func update_animation(direction: Vector2):
 			# Движение влево: отзеркаливаем спрайт и играем "run_flip"
 			if direction.x < 0:
 				anime.flip_h = true  # Переворот спрайта для направления влево
-				anime.play("run_flip")
+				anime.play("run")
 			# Движение вправо: убираем отзеркаливание и играем "run_flip"
 			elif direction.x > 0:
 				anime.flip_h = false  # Обычное положение для направления вправо
-				anime.play("run_flip")
+				anime.play("run")
 		# Если преобладает вертикаль (движение вверх или вниз)
 		else:
 			# Движение вниз: играем "run_front"
 			# Движение вверх: играем "run_back"
-			anime.play("run_front" if direction.y > 0 else "run_back")
+			anime.play("run_front" if direction.y > 0 else "run")
 	# Если персонаж стоит на месте (вектор скорости нулевой)
 	else:
 		# Проверяем последнее направление, чтобы выбрать анимацию покоя
@@ -60,13 +60,13 @@ func update_animation(direction: Vector2):
 			# Покой влево: отзеркаливаем и играем "idle_flip"
 			if last_direction.x < 0:
 				anime.flip_h = true  # Переворот для левого направления
-				anime.play("idle_flip")
+				anime.play("idle")
 			# Покой вправо: убираем отзеркаливание и играем "idle_flip"
 			elif last_direction.x > 0:
 				anime.flip_h = false  # Обычное положение для правого направления
-				anime.play("idle_flip")
+				anime.play("idle")
 		# Если последнее направление было вертикальным
 		else:
 			# Покой вниз: играем "idle_front"
 			# Покой вверх: играем "idle_back"
-			anime.play("idle_front" if last_direction.y > 0 else "idle_back")
+			anime.play("idle" if last_direction.y > 0 else "idle")

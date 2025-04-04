@@ -1,0 +1,20 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://di15y6ffa3prg"]
+
+[ext_resource type="Texture2D" uid="uid://dnqmyida4d31n" path="res://assets/images/PLAY_button_demo.png" id="2_a55dr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dqet1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kdixh"]
+texture = ExtResource("2_a55dr")
+region_rect = Rect2(9, 34, 110, 39)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dqet1"]
+texture = ExtResource("2_a55dr")
+region_rect = Rect2(137, 35, 110, 38)
+
+[resource]
+Button/styles/focus = SubResource("StyleBoxEmpty_dqet1")
+Button/styles/hover = SubResource("StyleBoxTexture_kdixh")
+Button/styles/hover_pressed = SubResource("StyleBoxTexture_dqet1")
+Button/styles/normal = SubResource("StyleBoxTexture_kdixh")
+Button/styles/pressed = SubResource("StyleBoxTexture_dqet1")

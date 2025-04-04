@@ -1,8 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpmqwrw3jdl6r"]
+[gd_scene load_steps=10 format=3 uid="uid://cpmqwrw3jdl6r"]
 
 [ext_resource type="Script" uid="uid://bh63q0s3sjbki" path="res://scripts/main_menu.gd" id="1_l6cm7"]
 [ext_resource type="PackedScene" uid="uid://dir0p1j5ddicb" path="res://scenes/background.tscn" id="2_bqqt6"]
 [ext_resource type="Script" uid="uid://321xaegb2fsy" path="res://scripts/click_button.gd" id="2_ekxnf"]
+[ext_resource type="Theme" uid="uid://di15y6ffa3prg" path="res://assets/images/new_theme.tres" id="3_wu84c"]
+[ext_resource type="Texture2D" uid="uid://b80thpf1qmgj5" path="res://assets/images/easy_settings.png" id="5_rtw2f"]
+[ext_resource type="StyleBox" uid="uid://dqe0ajwa6otca" path="res://assets/images/settings_style.tres" id="6_oa1go"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tbmy8"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jk1qb"]
+texture = ExtResource("5_rtw2f")
+region_rect = Rect2(524, 116, 170, 20)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rtw2f"]
+texture = ExtResource("5_rtw2f")
+region_rect = Rect2(268, 116, 170, 20)
 
 [node name="Main_Menu" type="Control"]
 layout_mode = 3
@@ -53,14 +66,24 @@ theme_override_constants/separation = 3
 
 [node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 39)
 layout_mode = 2
-text = "Play"
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("3_wu84c")
 script = ExtResource("2_ekxnf")
 
 [node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(170, 20)
 layout_mode = 2
-text = "Options"
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tbmy8")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jk1qb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_rtw2f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jk1qb")
+theme_override_styles/normal = ExtResource("6_oa1go")
 script = ExtResource("2_ekxnf")
 
 [node name="AboutButton" type="Button" parent="MarginContainer/VBoxContainer"]
@@ -74,6 +97,9 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Exit"
 script = ExtResource("2_ekxnf")
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
 
 [node name="VersionLabel" type="Label" parent="."]
 layout_mode = 1

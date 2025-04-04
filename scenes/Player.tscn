@@ -1,7 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://qrsfgr1gwp5y"]
+[gd_scene load_steps=6 format=3 uid="uid://qrsfgr1gwp5y"]
 
 [ext_resource type="SpriteFrames" uid="uid://dbqt200nlm2um" path="res://assets/images/new_sprite_frames.tres" id="1_p0vlq"]
 [ext_resource type="Script" uid="uid://dsdfspyhxyc1m" path="res://scripts/player.gd" id="1_v6fml"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3li8b"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v6fml"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_detail = 1
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v6fml"]
 radius = 29.0
@@ -11,12 +27,35 @@ height = 58.0
 script = ExtResource("1_v6fml")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -2)
 sprite_frames = ExtResource("1_p0vlq")
 animation = &"idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
-shape = SubResource("CapsuleShape2D_v6fml")
-
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -576.0
+offset_top = -322.0
+offset_right = 577.0
+offset_bottom = 323.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="ProgressBar" type="ProgressBar" parent="Camera2D/MarginContainer"]
+custom_minimum_size = Vector2(400, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/background = SubResource("StyleBoxFlat_3li8b")
+theme_override_styles/fill = SubResource("StyleBoxFlat_v6fml")
+value = 50.0
+show_percentage = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_v6fml")

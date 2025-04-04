@@ -52,7 +52,7 @@ func update_animation(direction: Vector2):
 		else:
 			# Движение вниз: играем "run_front"
 			# Движение вверх: играем "run_back"
-			anime.play("run_front" if direction.y > 0 else "run")
+			anime.play("run" if direction.y > 0 else "run")
 	# Если персонаж стоит на месте (вектор скорости нулевой)
 	else:
 		# Проверяем последнее направление, чтобы выбрать анимацию покоя

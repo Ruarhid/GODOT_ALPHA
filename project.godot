@@ -22,6 +22,10 @@ config/icon="res://icon.svg"
 Settings="*res://scripts/settings.gd"
 AudioManager="*res://scripts/audio_manager.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [gui]
 
 theme/default_font_multichannel_signed_distance_field=true

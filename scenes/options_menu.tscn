@@ -1,19 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://bu1iy82eewhy7"]
 
-[ext_resource type="Script" uid="uid://b1kfjgcwag5hw" path="res://scripts/options_menu.gd" id="1_c2u1v"]
-[ext_resource type="PackedScene" uid="uid://dir0p1j5ddicb" path="res://scenes/background.tscn" id="2_2iy26"]
-[ext_resource type="Script" uid="uid://321xaegb2fsy" path="res://scripts/click_button.gd" id="2_yjkok"]
+[ext_resource type="Script" uid="uid://b1kfjgcwag5hw" path="res://scripts/options_menu.gd" id="1_hm4m4"]
+[ext_resource type="PackedScene" uid="uid://dir0p1j5ddicb" path="res://scenes/background.tscn" id="2_lfjc7"]
+[ext_resource type="Script" uid="uid://321xaegb2fsy" path="res://scripts/click_button.gd" id="3_3xsyx"]
 
-[node name="Options" type="Control"]
+[node name="Options_Menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_c2u1v")
+script = ExtResource("1_hm4m4")
 
-[node name="Background" parent="." instance=ExtResource("2_2iy26")]
+[node name="Background" parent="." instance=ExtResource("2_lfjc7")]
 layout_mode = 1
 
 [node name="Label" type="Label" parent="."]
@@ -250,7 +250,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 25
 text = "Save"
-script = ExtResource("2_yjkok")
+script = ExtResource("3_3xsyx")
 
 [node name="DefaultButton" type="Button" parent="MarginContainer/VBoxContainer2"]
 unique_name_in_owner = true
@@ -258,7 +258,7 @@ custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Default"
-script = ExtResource("2_yjkok")
+script = ExtResource("3_3xsyx")
 
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer2"]
 unique_name_in_owner = true
@@ -268,4 +268,4 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 25
 text = "Close"
-script = ExtResource("2_yjkok")
+script = ExtResource("3_3xsyx")

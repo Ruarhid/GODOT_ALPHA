@@ -69,19 +69,26 @@ func _load_current_settings() -> void: # Загрузка текуших нас�
 	if current_idx != -1:
 		resolution_option.selected = current_idx
 	fullscreen_check.button_pressed = config.fullscreen
-	move_left_button.text = OS.get_keycode_string(config.controls["move_left"])
-	move_right_button.text = OS.get_keycode_string(config.controls["move_right"])
-	move_up_button.text = OS.get_keycode_string(config.controls["move_up"])
-	move_down_button.text = OS.get_keycode_string(config.controls["move_down"])
+	move_left_button.text = _get_control_string("move_left")
+	move_right_button.text = _get_control_string("move_right")
+	move_up_button.text = _get_control_string("move_up")
+	move_down_button.text = _get_control_string("move_down")
 
 
-func _input(event: InputEvent) ->  void:
-	if awaiting_input != "" and event is InputEventKey and event.pressed:
-		config.controls[awaiting_input] = event.keycode
-		_update_button_text(awaiting_input)
-		config._apply_controls() # Применение изменений
-		awaiting_input = ""
-		accept_event() # Предотврашение дальнейшей обработки события
+func _input(event: InputEvent) -> void:
+	if awaiting_input != "":
+		if event is InputEventKey and event.pressed:
+			config.controls[awaiting_input] = {"type": "key", "value": event.keycode}
+			_update_button_text(awaiting_input)
+			config._apply_controls() # Применение изменений
+			awaiting_input = ""
+			accept_event() # Предотврашение дальнейшей обработки события
+		elif event is InputEventJoypadButton and event.pressed:
+			config.controls[awaiting_input] = {"type": "joypad_button", "value": event.button_index}
+			_update_button_text(awaiting_input)
+			config._apply_controls()
+			awaiting_input = ""
+			accept_event()
 
 func _start_rebind(action: String) -> void:
 	awaiting_input = action
@@ -94,12 +101,29 @@ func _start_rebind(action: String) -> void:
 
 func _update_button_text(action: String) -> void:
 	match  action:
-		"move_left": move_left_button.text = OS.get_keycode_string(config.controls["move_left"])
-		"move_right": move_right_button.text = OS.get_keycode_string(config.controls["move_right"])
-		"move_up": move_up_button.text = OS.get_keycode_string(config.controls["move_up"])
-		"move_down": move_down_button.text = OS.get_keycode_string(config.controls["move_down"])
+		"move_left": move_left_button.text = _get_control_string("move_left")
+		"move_right": move_right_button.text = _get_control_string("move_right")
+		"move_up": move_up_button.text = _get_control_string("move_up")
+		"move_down": move_down_button.text = _get_control_string("move_down")
 
-	
+func _get_control_string(action: String) -> String:
+	var control = config.controls[action]
+	if control["type"] == "key":
+		return OS.get_keycode_string(control["value"])
+	elif control["type"] == "joypad_button":
+		match control["value"]:
+			JOY_BUTTON_A : return "A"
+			JOY_BUTTON_B : return "B"
+			JOY_BUTTON_X : return "X"
+			JOY_BUTTON_Y : return "Y"
+			JOY_BUTTON_LEFT_SHOULDER : return "LB"
+			JOY_BUTTON_RIGHT_SHOULDER : return "RB"
+			JOY_BUTTON_LEFT_STICK : return "L3"
+			JOY_BUTTON_RIGHT_STICK : return "R3"
+			JOY_BUTTON_START : return "Start"
+			JOY_BUTTON_BACK : return "Back"
+			_: return "Button " + str(control["value"])
+	return "Unknown"
 
 func _on_master_changed(value: float) -> void:
 	config.master_volume = value

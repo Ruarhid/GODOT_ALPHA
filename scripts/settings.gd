@@ -39,10 +39,10 @@ var fullscreen: bool = false:
 
 # Настройки управления
 var controls: Dictionary = {
-	"move_left": KEY_A,
-	"move_right": KEY_D,
-	"move_up": KEY_W,
-	"move_down": KEY_S
+	"move_left": {"type": "key", "value": KEY_A},
+	"move_right": {"type": "key", "value": KEY_D},
+	"move_up": {"type": "key", "value": KEY_W},
+	"move_down": {"type": "key", "value": KEY_S}
 }
 
 func _ready() -> void:
@@ -68,7 +68,8 @@ func save_settings() -> void:
 	config_file.set_value("Display", "resolution_y", resolution.y)
 	config_file.set_value("Display", "fullscreen", fullscreen)
 	for action in controls.keys():
-		config_file.set_value("Controls", action, controls[action])
+		config_file.set_value("Controls", action + "_type", controls[action]["type"])
+		config_file.set_value("Controls", action + "_value", controls[action]["value"])
 	var err = config_file.save(CONFIG_PATH)
 	if err == OK:
 		print("Settings save successfully")
@@ -87,11 +88,14 @@ func load_settings() -> void:
 		)
 		fullscreen = config_file.get_value("Display", "fullscreen", false)
 		for action in controls.keys():
-			controls[action] = config_file.get_value("Controls", action, controls[action])
+			controls[action]["type"] = config_file.get_value("Controls", action + "_type", "key")
+			controls[action]["value"] = config_file.get_value("Controls", action + "_value", controls[action]["value"])
 		print("Settings loaded: Master=", master_volume, " Music=", music_volume, " SFX=", sfx_volume)
 	else:
 		reset_to_default() # Если файла нет, использовать по умолчанию
 		print("No config file found, reset to default")
+	_apply_controls()
+
 
 func reset_to_default() -> void:
 	master_volume = 1.0
@@ -100,10 +104,10 @@ func reset_to_default() -> void:
 	resolution = Vector2i(1920, 1080)
 	fullscreen = false
 	controls = {
-	"move_left": KEY_A,
-	"move_right": KEY_D,
-	"move_up": KEY_W,
-	"move_down": KEY_S
+	"move_left": {"type": "key", "value": KEY_A},
+	"move_right": {"type": "key", "value": KEY_D},
+	"move_up": {"type": "key", "value": KEY_W},
+	"move_down": {"type": "key", "value": KEY_S}
 	}
 	save_settings()
 
@@ -113,10 +117,16 @@ func _apply_controls() -> void:
 		var events = InputMap.action_get_events(action)
 		for event in events:
 			InputMap.action_erase_event(action, event)
-		# Добовляем новое событие
-		var event = InputEventKey.new()
-		event.keycode = controls[action]
-		InputMap.action_add_event(action, event)
+		var control = controls[action]
+		if control["type"] == "key":
+			# Добовляем новое событие
+			var event = InputEventKey.new()
+			event.keycode = control["value"]
+			InputMap.action_add_event(action, event)
+		elif control["type"] == "joypad_button":
+			var event = InputEventJoypadButton.new()
+			event.button_index = control["value"]
+			InputMap.action_add_event(action, event)
 
 func _apply_settings() -> void:
 	_update_bus_volume("Master", master_volume)

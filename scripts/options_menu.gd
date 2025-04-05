@@ -79,13 +79,11 @@ func _input(event: InputEvent) -> void:
 			_update_button_text(awaiting_input)
 			config._apply_controls() # Применение изменений
 			awaiting_input = ""
-			accept_event() # Предотврашение дальнейшей обработки события
 		elif event is InputEventJoypadButton and event.pressed:
 			config.controls[awaiting_input] = {"type": "joypad_button", "value": event.button_index}
 			_update_button_text(awaiting_input)
 			config._apply_controls()
 			awaiting_input = ""
-			accept_event()
 		elif event is InputEventJoypadMotion:
 			var axis_value = event.axis_value
 			if abs(axis_value) >  0.5: # Чувствительность для стиков
@@ -94,7 +92,6 @@ func _input(event: InputEvent) -> void:
 				_update_button_text(awaiting_input)
 				config._apply_controls()
 				awaiting_input = ""
-				accept_event()
 
 func _start_rebind(action: String) -> void:
 	awaiting_input = action

@@ -24,6 +24,7 @@ radius = 29.0
 height = 58.0
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 4
 script = ExtResource("1_v6fml")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -59,3 +60,11 @@ show_percentage = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_v6fml")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D_Area" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_v6fml")
+debug_color = Color(0.968235, 0.0618197, 0.425911, 0.42)

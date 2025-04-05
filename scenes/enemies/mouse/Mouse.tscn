@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbxyd8ot5ntbw"]
+
+[ext_resource type="SpriteFrames" uid="uid://55y1cho5fy6x" path="res://assets/images/mouse_anime.tres" id="1_kg2lt"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1dksa"]
+radius = 7.6
+
+[node name="Mouse" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 4
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("1_kg2lt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(10, 8)
+scale = Vector2(5, 1)
+shape = SubResource("CapsuleShape2D_1dksa")

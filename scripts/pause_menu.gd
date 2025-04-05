@@ -7,7 +7,7 @@ class_name PauseMenu
 func  _ready() -> void:
 	resume_button.pressed.connect(_on_resume_pressed)
 	exit_button.pressed.connect(_on_exit_pressed)
-	hide() # Скрыть меню при запуске
+	hide() #  Скрыть меню при запуске
 	process_mode = PROCESS_MODE_ALWAYS # Обрабатывать меню даже на пузе
 
 func _input(event: InputEvent) -> void:

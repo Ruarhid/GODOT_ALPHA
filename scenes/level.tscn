@@ -13,10 +13,10 @@ tile_map_data = PackedByteArray("AAD8//3/AAAKAAAAAAD8//7/AAAJAAAAAAD8////AAALAAA
 tile_set = ExtResource("1_2q6dc")
 
 [node name="Player" parent="." instance=ExtResource("2_w7c3h")]
-position = Vector2(130, 135)
+position = Vector2(181, 169)
 
 [node name="PauseMenu" parent="." instance=ExtResource("4_mx8sn")]
-offset_left = 124.0
-offset_top = 317.0
-offset_right = 124.0
-offset_bottom = 317.0
+offset_left = 174.0
+offset_top = 331.0
+offset_right = 174.0
+offset_bottom = 331.0

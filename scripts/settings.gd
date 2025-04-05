@@ -70,6 +70,8 @@ func save_settings() -> void:
 	for action in controls.keys():
 		config_file.set_value("Controls", action + "_type", controls[action]["type"])
 		config_file.set_value("Controls", action + "_value", controls[action]["value"])
+		if controls[action]["type"] == "joypad_axis":
+			config_file.set_value("Controls", action + "_derection", controls[action]["direction"])
 	var err = config_file.save(CONFIG_PATH)
 	if err == OK:
 		print("Settings save successfully")
@@ -90,6 +92,8 @@ func load_settings() -> void:
 		for action in controls.keys():
 			controls[action]["type"] = config_file.get_value("Controls", action + "_type", "key")
 			controls[action]["value"] = config_file.get_value("Controls", action + "_value", controls[action]["value"])
+			if controls[action]["type"] == "joypad_axis":
+				controls[action]["direction"] = config_file.get_value("Controls", action + "_direction", 1)
 		print("Settings loaded: Master=", master_volume, " Music=", music_volume, " SFX=", sfx_volume)
 	else:
 		reset_to_default() # Если файла нет, использовать по умолчанию
@@ -126,6 +130,11 @@ func _apply_controls() -> void:
 		elif control["type"] == "joypad_button":
 			var event = InputEventJoypadButton.new()
 			event.button_index = control["value"]
+			InputMap.action_add_event(action, event)
+		elif control["type"] == "joypad_axis":
+			var event = InputEventJoypadMotion.new()
+			event.axis = control["value"]
+			event.axis_value = control["direction"] # +1 или -1 для направления
 			InputMap.action_add_event(action, event)
 
 func _apply_settings() -> void:

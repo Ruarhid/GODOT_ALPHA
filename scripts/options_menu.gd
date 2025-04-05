@@ -17,11 +17,8 @@ class_name OptionsMenu
 
 
 var config: GameConfig = Settings
-# Динамический список разрешений
-var available_resolutions: Array[Vector2i] = []
-# Ожидание действия переназначения кнопки
-var awaiting_input: String = "" 
-
+var available_resolutions: Array[Vector2i] = [] # Динамический список разрешений
+var awaiting_input: String = "" # Ожидание действия переназначения кнопки
 
 func _ready() -> void: 
 	_setup_resolution_options()
@@ -89,15 +86,23 @@ func _input(event: InputEvent) -> void:
 			config._apply_controls()
 			awaiting_input = ""
 			accept_event()
+		elif event is InputEventJoypadMotion:
+			var axis_value = event.axis_value
+			if abs(axis_value) >  0.5: # Чувствительность для стиков
+				var direction = 1 if axis_value > 0 else -1
+				config.controls[awaiting_input] = {"type": "joypad_axis", "value": event.axis, "direction": direction}
+				_update_button_text(awaiting_input)
+				config._apply_controls()
+				awaiting_input = ""
+				accept_event()
 
 func _start_rebind(action: String) -> void:
 	awaiting_input = action
 	match action:
-		"move_left": move_left_button.text = "Press a key"
-		"move_right": move_right_button.text = "Press a key"
-		"move_up": move_up_button.text = "Press a key"
-		"move_down": move_down_button.text = "Press a key"
-
+		"move_left": move_left_button.text = "Press a key button, or move stick..."
+		"move_right": move_right_button.text = "Press a key button, or move stick..."
+		"move_up": move_up_button.text = "Press a key button, or move stick..."
+		"move_down": move_down_button.text = "Press a key button, or move stick..."
 
 func _update_button_text(action: String) -> void:
 	match  action:
@@ -123,6 +128,16 @@ func _get_control_string(action: String) -> String:
 			JOY_BUTTON_START : return "Start"
 			JOY_BUTTON_BACK : return "Back"
 			_: return "Button " + str(control["value"])
+	elif control["type"] == "joypad_axis":
+		var direction_str = " +" if control["direction"] > 0 else " -"
+		match control["value"]:
+			JOY_AXIS_LEFT_X: return "Left Stick X" + direction_str
+			JOY_AXIS_LEFT_Y: return "Left Stick Y" + direction_str
+			JOY_AXIS_RIGHT_X: return "Right Stick X" + direction_str
+			JOY_AXIS_RIGHT_Y: return "Right Stick Y" + direction_str
+			JOY_AXIS_TRIGGER_LEFT: return "Left Trigger"
+			JOY_AXIS_TRIGGER_RIGHT: return "Right Trigger"
+			_: return "Axis " + str(control["value"]) + direction_str
 	return "Unknown"
 
 func _on_master_changed(value: float) -> void:

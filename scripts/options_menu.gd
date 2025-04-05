@@ -98,11 +98,22 @@ func _input(event: InputEvent) -> void:
 
 func _start_rebind(action: String) -> void:
 	awaiting_input = action
+	var original_text = _get_control_string(action) # Сохранить исходный текс
 	match action:
 		"move_left": move_left_button.text = "Press a key button, or move stick..."
 		"move_right": move_right_button.text = "Press a key button, or move stick..."
 		"move_up": move_up_button.text = "Press a key button, or move stick..."
 		"move_down": move_down_button.text = "Press a key button, or move stick..."
+	# Запуск таймера на 5 секунд
+	await get_tree().create_timer(5.0).timeout
+	# Если ввод всё ещё ожидается, вернуть исходный текст
+	if awaiting_input == action:
+		awaiting_input = ""
+		match  action:
+			"move_left": move_left_button.text = original_text
+			"move_right": move_right_button.text = original_text
+			"move_up": move_up_button.text = original_text
+			"move_down": move_down_button.text = original_text
 
 func _update_button_text(action: String) -> void:
 	match  action:

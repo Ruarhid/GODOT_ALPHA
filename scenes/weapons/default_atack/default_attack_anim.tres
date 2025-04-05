@@ -1,0 +1,18 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://swn7hpx3eere"]
+
+[ext_resource type="Texture2D" uid="uid://bea7mcw86qswd" path="res://scenes/weapons/default_atack/default_attack.png" id="1_72ljx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8hkf"]
+atlas = ExtResource("1_72ljx")
+region = Rect2(0, 0, 128, 128)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s8hkf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

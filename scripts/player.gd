@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-# Константа скорости персонажа (можно менять в инспекторе или здесь)
+# Константа скорости персонажа
 const SPEED = 500.0
 
 # Переменная здоровья игрока
@@ -9,86 +9,99 @@ var health = 100
 # Переменная для хранения последнего направления движения, изначально вниз
 var last_direction = Vector2.DOWN
 
-# Ссылка на AnimatedSprite2D, инициализируется при загрузке сцены
+# Ссылка на AnimatedSprite2D
 @onready var anime = $AnimatedSprite2D
 
-# Функция, вызываемая при старте сцены
-func _ready():
-	# Подключаем сигнал body_entered от Area2D к функции обработки урона
-	$Area2D.body_entered.connect(_on_area_2d_body_entered)
+# Переменные для урона от врага
+var is_enemy_inside = false
+var damage_timer = 0.0
+const DAMAGE_INTERVAL = 1.0
+const DAMAGE_AMOUNT = 10
 
-# Функция для обработки ввода от игрока
+# Переменные для автоатаки
+var attack_timer = 0.0
+const ATTACK_INTERVAL = 0.5  # Снаряд каждые 0.5 секунды
+const PROJECTILE_SCENE = preload("res://scenes/weapons/default_atack/default_attack.tscn")
+
+func _ready():
+	# Подключаем сигналы Area2D
+	$Area2D.body_entered.connect(_on_area_2d_body_entered)
+	$Area2D.body_exited.connect(_on_area_2d_body_exited)
+
+func _physics_process(_delta: float) -> void:
+	# Обновляем прогресс-бар
+	%ProgressBar.value = health
+	
+	# Обрабатываем ввод и движение
+	get_input()
+	update_animation(velocity)
+	move_and_slide()
+	
+	# Постепенный урон от врага
+	if is_enemy_inside:
+		damage_timer += _delta
+		if damage_timer >= DAMAGE_INTERVAL:
+			health -= DAMAGE_AMOUNT
+			print("Player health: ", health)
+			damage_timer = 0.0
+			if health <= 0:
+				print("Player died!")
+				# queue_free()
+
+	# Автоатака
+	attack_timer += _delta
+	if attack_timer >= ATTACK_INTERVAL:
+		fire_projectile()
+		attack_timer = 0.0
+
 func get_input():
-	# Получаем вектор направления от ввода (ui_left, ui_right, ui_up, ui_down)
-	# Возвращает нормализованный Vector2 (от -1 до 1 по осям)
 	var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	
-	# Устанавливаем скорость персонажа: направление * скорость
 	velocity = input_direction * SPEED 
-	
-	# Если есть движение (вектор не нулевой), обновляем последнее направление
-	# Это важно для определения анимации покоя
 	if input_direction != Vector2.ZERO:
 		last_direction = input_direction
 
-# Основной физический процесс, вызывается каждый кадр
-func _physics_process(_delta: float) -> void:
-	
-	%ProgressBar.value = health
-	
-	# Получаем ввод и обновляем velocity
-	get_input()
-	
-	# Обновляем анимацию на основе текущей скорости
-	update_animation(velocity)
-	
-	# Двигаем персонажа с учётом физики и столкновений
-	move_and_slide()
-
-# Функция для управления анимациями в зависимости от движения
 func update_animation(direction: Vector2):
-	# Если персонаж движется (вектор скорости не нулевой)
 	if direction != Vector2.ZERO:
-		# Проверяем, что преобладает: горизонталь (x) или вертикаль (y)
 		if abs(direction.x) > abs(direction.y):
-			# Движение влево: отзеркаливаем спрайт и играем "run_flip"
 			if direction.x < 0:
-				anime.flip_h = true  # Переворот спрайта для направления влево
+				anime.flip_h = true
 				anime.play("run")
-			# Движение вправо: убираем отзеркаливание и играем "run_flip"
 			elif direction.x > 0:
-				anime.flip_h = false  # Обычное положение для направления вправо
+				anime.flip_h = false
 				anime.play("run")
-		# Если преобладает вертикаль (движение вверх или вниз)
 		else:
-			# Движение вниз: играем "run_front"
-			# Движение вверх: играем "run_back"
 			anime.play("run" if direction.y > 0 else "run")
-	# Если персонаж стоит на месте (вектор скорости нулевой)
 	else:
-		# Проверяем последнее направление, чтобы выбрать анимацию покоя
 		if abs(last_direction.x) > abs(last_direction.y):
-			# Покой влево: отзеркаливаем и играем "idle_flip"
 			if last_direction.x < 0:
-				anime.flip_h = true  # Переворот для левого направления
+				anime.flip_h = true
 				anime.play("idle")
-			# Покой вправо: убираем отзеркаливание и играем "idle_flip"
 			elif last_direction.x > 0:
-				anime.flip_h = false  # Обычное положение для правого направления
+				anime.flip_h = false
 				anime.play("idle")
-		# Если последнее направление было вертикальным
 		else:
-			# Покой вниз: играем "idle_front"
-			# Покой вверх: играем "idle_back"
 			anime.play("idle" if last_direction.y > 0 else "idle")
 
-# Функция обработки пересечения Area2D с телом (Врагом)
 func _on_area_2d_body_entered(body):
-	# Проверяем, что пересекся Враг (по имени узла "Mouse")
 	if body.name == "Mouse":
-		health -= 10  # Уменьшаем здоровье на 10
-		print("Player health: ", health)  # Для отладки
-		if health <= 0:
-			print("Player died!")
-			# Здесь можно добавить логику смерти, например:
-			# queue_free() # Удалить игрока
+		is_enemy_inside = true
+		health -= DAMAGE_AMOUNT
+		print("Player health: ", health)
+		damage_timer = 0.0
+
+func _on_area_2d_body_exited(body):
+	if body.name == "Mouse":
+		is_enemy_inside = false
+
+func fire_projectile():
+	# Находим ближайшего врага
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	if enemies.size() > 0:
+		var target = enemies[0]  # Ближайший враг (можно улучшить по расстоянию)
+		var direction = (target.global_position - global_position).normalized()
+		
+		# Создаём снаряд
+		var projectile = PROJECTILE_SCENE.instantiate()
+		projectile.global_position = global_position  # Старт от позиции игрока
+		projectile.direction = direction
+		get_parent().add_child(projectile)  # Добавляем в сцену

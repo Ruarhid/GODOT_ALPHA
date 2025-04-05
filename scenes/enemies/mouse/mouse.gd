@@ -20,6 +20,8 @@ func _ready():
 	add_to_group("enemies")
 
 func _physics_process(_delta):
+	$ProgressBar.value = health
+	
 	if player != null:
 		var distance_to_player = global_position.distance_to(player.global_position)
 		if distance_to_player > STOP_DISTANCE:

@@ -24,6 +24,7 @@ const ATTACK_INTERVAL = 0.5  # Снаряд каждые 0.5 секунды
 const PROJECTILE_SCENE = preload("res://scenes/weapons/default_atack/default_attack.tscn")
 
 func _ready():
+	%ProgressBar2.visible = false
 	# Подключаем сигналы Area2D
 	$Area2D.body_entered.connect(_on_area_2d_body_entered)
 	$Area2D.body_exited.connect(_on_area_2d_body_exited)
@@ -31,6 +32,10 @@ func _ready():
 func _physics_process(_delta: float) -> void:
 	# Обновляем прогресс-бар
 	%ProgressBar.value = health
+	
+	if health < 100:
+		%ProgressBar2.visible = true
+		%ProgressBar2.value = health
 	
 	# Обрабатываем ввод и движение
 	get_input()

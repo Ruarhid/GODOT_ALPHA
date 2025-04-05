@@ -24,3 +24,7 @@ offset_bottom = 333.0
 
 [node name="Mouse" parent="." instance=ExtResource("5_ppgk2")]
 position = Vector2(404, 135)
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 0.064
+autostart = true

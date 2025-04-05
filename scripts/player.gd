@@ -3,11 +3,19 @@ extends CharacterBody2D
 # Константа скорости персонажа (можно менять в инспекторе или здесь)
 const SPEED = 500.0
 
+# Переменная здоровья игрока
+var health = 100
+
 # Переменная для хранения последнего направления движения, изначально вниз
 var last_direction = Vector2.DOWN
 
 # Ссылка на AnimatedSprite2D, инициализируется при загрузке сцены
 @onready var anime = $AnimatedSprite2D
+
+# Функция, вызываемая при старте сцены
+func _ready():
+	# Подключаем сигнал body_entered от Area2D к функции обработки урона
+	$Area2D.body_entered.connect(_on_area_2d_body_entered)
 
 # Функция для обработки ввода от игрока
 func get_input():
@@ -25,6 +33,9 @@ func get_input():
 
 # Основной физический процесс, вызывается каждый кадр
 func _physics_process(_delta: float) -> void:
+	
+	%ProgressBar.value = health
+	
 	# Получаем ввод и обновляем velocity
 	get_input()
 	
@@ -70,3 +81,14 @@ func update_animation(direction: Vector2):
 			# Покой вниз: играем "idle_front"
 			# Покой вверх: играем "idle_back"
 			anime.play("idle" if last_direction.y > 0 else "idle")
+
+# Функция обработки пересечения Area2D с телом (Врагом)
+func _on_area_2d_body_entered(body):
+	# Проверяем, что пересекся Враг (по имени узла "Mouse")
+	if body.name == "Mouse":
+		health -= 10  # Уменьшаем здоровье на 10
+		print("Player health: ", health)  # Для отладки
+		if health <= 0:
+			print("Player died!")
+			# Здесь можно добавить логику смерти, например:
+			# queue_free() # Удалить игрока

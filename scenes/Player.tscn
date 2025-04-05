@@ -49,6 +49,7 @@ theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
 [node name="ProgressBar" type="ProgressBar" parent="Camera2D/MarginContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(400, 20)
 layout_mode = 2
 size_flags_horizontal = 0

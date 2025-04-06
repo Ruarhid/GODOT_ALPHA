@@ -99,14 +99,22 @@ func _on_area_2d_body_exited(body):
 		is_enemy_inside = false
 
 func fire_projectile():
-	# Находим ближайшего врага
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	if enemies.size() > 0:
-		var target = enemies[0]  # Ближайший враг (можно улучшить по расстоянию)
-		var direction = (target.global_position - global_position).normalized()
+		# Ищем ближайшего врага
+		var closest_enemy = null
+		var min_distance = INF  # Бесконечность как начальное значение
+		for enemy in enemies:
+			var distance = global_position.distance_to(enemy.global_position)
+			if distance < min_distance:
+				min_distance = distance
+				closest_enemy = enemy
+		
+		# Задаём направление к ближайшему врагу
+		var direction = (closest_enemy.global_position - global_position).normalized()
 		
 		# Создаём снаряд
 		var projectile = PROJECTILE_SCENE.instantiate()
-		projectile.global_position = global_position  # Старт от позиции игрока
+		projectile.global_position = global_position
 		projectile.direction = direction
-		get_parent().add_child(projectile)  # Добавляем в сцену
+		get_parent().add_child(projectile)

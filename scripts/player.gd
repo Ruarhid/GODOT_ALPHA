@@ -88,14 +88,14 @@ func update_animation(direction: Vector2):
 			anime.play("idle" if last_direction.y > 0 else "idle")
 
 func _on_area_2d_body_entered(body):
-	if body.name == "Mouse":
+	if body.is_in_group("enemies"):
 		is_enemy_inside = true
 		health -= DAMAGE_AMOUNT
 		print("Player health: ", health)
 		damage_timer = 0.0
 
 func _on_area_2d_body_exited(body):
-	if body.name == "Mouse":
+	if body.is_in_group("enemies"):
 		is_enemy_inside = false
 
 func fire_projectile():

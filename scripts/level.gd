@@ -35,4 +35,4 @@ func spawn_mouse():
 	add_child(mouse)
 	
 	# Отладка
-	print("Spawned mouse at: ", mouse.position)
+	#print("Spawned mouse at: ", mouse.position)

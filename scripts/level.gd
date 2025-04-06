@@ -1,7 +1,7 @@
 extends Node2D
 class_name Level
 
-@onready var pause_menu: PauseMenu = $PauseMenu
+@onready var pause_menu: PauseMenu = $PauseUI/PauseMenu
 
 # Загружаем сцену мыши
 const MOUSE_SCENE = preload("res://scenes/enemies/mouse/Mouse.tscn")

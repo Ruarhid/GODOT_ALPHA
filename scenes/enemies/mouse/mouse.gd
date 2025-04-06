@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 # Константа скорости мыши
-const SPEED = 150.0
+const SPEED = 10.0
 const STOP_DISTANCE = 20.0
 
 # Здоровье мыши

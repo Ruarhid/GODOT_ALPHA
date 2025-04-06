@@ -13,10 +13,7 @@ var last_direction = Vector2.DOWN
 @onready var anime = $AnimatedSprite2D
 
 # Переменные для урона от врага
-var is_enemy_inside = false
-var damage_timer = 0.0
-const DAMAGE_INTERVAL = 1.0
-const DAMAGE_AMOUNT = 10
+const DAMAGE_AMOUNT = 10  # Урон при столкновении
 
 # Переменные для автоатаки
 var attack_timer = 0.0
@@ -42,17 +39,6 @@ func _physics_process(_delta: float) -> void:
 	update_animation(velocity)
 	move_and_slide()
 	
-	# Постепенный урон от врага
-	if is_enemy_inside:
-		damage_timer += _delta
-		if damage_timer >= DAMAGE_INTERVAL:
-			health -= DAMAGE_AMOUNT
-			print("Player health: ", health)
-			damage_timer = 0.0
-			if health <= 0:
-				print("Player died!")
-				# queue_free()
-
 	# Автоатака
 	attack_timer += _delta
 	if attack_timer >= ATTACK_INTERVAL:
@@ -89,21 +75,21 @@ func update_animation(direction: Vector2):
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("enemies"):
-		is_enemy_inside = true
-		health -= DAMAGE_AMOUNT
+		health -= DAMAGE_AMOUNT  # Наносим урон при столкновении
 		print("Player health: ", health)
-		damage_timer = 0.0
+		if health <= 0:
+			print("Player died!")
+			# queue_free()  # Раскомментируйте, если нужно удалять игрока
 
 func _on_area_2d_body_exited(body):
-	if body.is_in_group("enemies"):
-		is_enemy_inside = false
+	pass  # Ничего не делаем при выходе
 
 func fire_projectile():
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	if enemies.size() > 0:
 		# Ищем ближайшего врага
 		var closest_enemy = null
-		var min_distance = INF  # Бесконечность как начальное значение
+		var min_distance = INF
 		for enemy in enemies:
 			var distance = global_position.distance_to(enemy.global_position)
 			if distance < min_distance:

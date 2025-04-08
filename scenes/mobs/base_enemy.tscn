@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6n0n41tk51qm"]
+
+[ext_resource type="Script" uid="uid://d0io4dxum7du1" path="res://scenes/mobs/base_enemy.gd" id="1_0rf8c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sdmow"]
+radius = 15.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0rf8c"]
+
+[node name="BaseEnemy" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_0rf8c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -16)
+shape = SubResource("CircleShape2D_sdmow")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="DamageArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+position = Vector2(0, -16)
+shape = SubResource("CircleShape2D_0rf8c")
+debug_color = Color(0.957896, 0.186765, 0.22861, 0.42)

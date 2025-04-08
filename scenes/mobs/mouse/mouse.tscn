@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhqghwjirp6bg"]
+
+[ext_resource type="PackedScene" uid="uid://c6n0n41tk51qm" path="res://scenes/mobs/base_enemy.tscn" id="1_se6m7"]
+[ext_resource type="Script" uid="uid://dhxmbbgt7i7e3" path="res://scenes/mobs/mouse/mouse.gd" id="2_hn8fa"]
+[ext_resource type="Texture2D" uid="uid://bqyxeac6pn86v" path="res://icon.svg" id="3_hn8fa"]
+
+[node name="Mouse" instance=ExtResource("1_se6m7")]
+script = ExtResource("2_hn8fa")
+max_health = 40
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, -16)
+scale = Vector2(0.207031, 0.207031)
+texture = ExtResource("3_hn8fa")

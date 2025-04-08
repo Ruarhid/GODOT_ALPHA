@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dajps7td0tueo"]
+
+[ext_resource type="Script" uid="uid://dp85yggnannaw" path="res://scenes/spawner/enemy_spawner.gd" id="1_0ahpm"]
+[ext_resource type="PackedScene" uid="uid://dhqghwjirp6bg" path="res://scenes/mobs/mouse/mouse.tscn" id="2_q1tvm"]
+[ext_resource type="PackedScene" uid="uid://7gqv71wjdavp" path="res://scenes/mobs/fast_mouse/fast_mouse.tscn" id="3_8ekw0"]
+
+[node name="EnemySpawner" type="Node2D"]
+script = ExtResource("1_0ahpm")
+enemy_scenes = Array[PackedScene]([ExtResource("2_q1tvm"), ExtResource("3_8ekw0")])
+spawn_zones = Array[Vector2]([Vector2(300, 300)])
+
+[node name="SpawnTimer" type="Timer" parent="."]
+unique_name_in_owner = true

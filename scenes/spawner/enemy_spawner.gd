@@ -8,12 +8,18 @@ class_name EnemySpawner
 @export var wave_size: int = 10 # Количество врагов в волне
 @export var spawn_interval: float = 1.0  # Интервал спавна
 @export var min_spawn_distance: float = 100.0 # Минимальное растояние от игрока
-#@export var spawn_radius: float = 500.0 # Радиус зоны спавна
+@export var max_spawn_distance: float = 400.0
 
 # Прогресс сложности
 @export var wave_size_increase: int = 1 # Увеличение размера волны каждый N волн
 @export var wave_interval_decrease: float = 0.5 # Уменьшение интервала каждый N волн
 @export var difficulty_step: int = 5 # Каждые 5 волн увеличивать сложность
+
+@export var spawn_zone_count: int = 4
+@export var spawn_zone_size: float = 50.0
+
+# Анимация волны
+@export var spawn_indicator_texture: Texture2D = preload("res://assets/images/spawn.png")
 
 # Типы волн
 enum WaveType { NORMAL, FAST, MIXED}
@@ -33,12 +39,59 @@ var current_spawn_zone: Node2D = null
 @onready var spawn_timer: Timer = %SpawnTimer
 
 func _ready() -> void:
+	randomize()
 	player = get_tree().get_first_node_in_group("player")
 	if spawn_zones.size() == 0:
 		print("No spawn zones defined, using random position!")
+	generate_spawn_zones()
 	spawn_timer.wait_time = wave_interval # Начинаем с паузы перед первой волной
 	spawn_timer.timeout.connect(_on_timer_timeout)
 	spawn_timer.start()
+
+func generate_spawn_zones() -> void:
+	for zone in spawn_zones:
+		zone.queue_free()
+	spawn_zones.clear()
+	
+	for i in range(spawn_zone_count):
+		var zone = Node2D.new()
+		zone.name = "SpawnZone" + str(i + 1)
+		# Анимация
+		var indicator = AnimatedSprite2D.new()
+		indicator.name = "Indicator"
+		indicator.sprite_frames = SpriteFrames.new()
+		
+		indicator.sprite_frames.add_animation("pulse")
+		var frame_width: float = 50.0
+		var frame_height: float = 50.0
+		
+		if spawn_indicator_texture:
+			frame_width = spawn_indicator_texture.get_width() / 5.0
+			frame_height = spawn_indicator_texture.get_height()
+			
+			for frame in range(5):
+				var region = Rect2(frame * frame_width, 0, frame_width, frame_height)
+				var atlas_texture = AtlasTexture.new()
+				atlas_texture.atlas = spawn_indicator_texture
+				atlas_texture.region = region
+				indicator.sprite_frames.add_frame("pulse", atlas_texture)
+				
+			indicator.sprite_frames.set_animation_speed("pulse", 7.0)
+			indicator.sprite_frames.set_animation_loop("pulse", true)
+		else:
+			print("Warning: No spawn_indocator_texture set!")
+		# Маштабирование вне условия
+		indicator.scale = Vector2(spawn_zone_size / frame_width, spawn_zone_size / frame_height) if spawn_indicator_texture else Vector2(1.0, 1.0)
+		indicator.position = Vector2.ZERO
+		indicator.visible = false
+		
+		zone.add_child(indicator)
+		add_child(zone)
+		
+		var spawn_pos = get_random_zone_position()
+		zone.global_position = spawn_pos
+		spawn_zones.append(zone)
+		print("Created spawn zone at: ", spawn_pos)
 
 func _on_timer_timeout() -> void:
 	if enemies_to_spawn <= 0:
@@ -74,20 +127,36 @@ func _spawn_single_enemy() -> void:
 
 func get_spawn_position() -> Vector2:
 	if spawn_zones.size() > 0 and current_spawn_zone:
-		var offset = Vector2(randf_range(-50, 50), randf_range(-50, 50))
-		var spawn_pos = current_spawn_zone.global_position + offset
-		#var zone = spawn_zones[randi() % spawn_zones.size()] # Выбрать случайную зону спавна
-		#var offset = Vector2(randf_range(-50, 50), randf_range(-50, 50)) # Добавить небольшой разброс вокруг зоны
-		#var spawn_pos = zone + offset
-		# Проверяем минимальное расстояние до игрока
-		if spawn_pos.distance_to(player.global_position) < min_spawn_distance:
-			return get_spawn_position() # Рекурсия если слишком  близко
-		return spawn_pos
+		var attempts = 0
+		var max_attempts = 10
+		while  attempts < max_attempts:
+			var offset = Vector2(randf_range(-50, 50), randf_range(-50, 50))
+			var spawn_pos = current_spawn_zone.global_position + offset
+			if spawn_pos.distance_to(player.global_position) >= min_spawn_distance:
+				return spawn_pos
+			attempts += 1
+		print("Warning: Couldn't find valid spawn position after ", max_attempts, " attempts!")
+		return current_spawn_zone.global_position + Vector2(50, 50)
 	else:
-		# Старая логика с кольцом, если зоны не заданы
-		var angel = randf() * 2 * PI
+		var angle = randf() * 2 * PI
 		var distance = randf_range(min_spawn_distance, min_spawn_distance + 200.0)
-		return player.global_position + Vector2(cos(angel), sin(angel)) * distance
+		return player.global_position + Vector2(cos(angle), sin(angle)) * distance
+
+func get_random_zone_position() -> Vector2:
+	var attempts = 0
+	var max_attempts = 10 # Ограничение числа попыток
+	var spawn_pos = Vector2.ZERO
+		
+	while attempts < max_attempts:
+		var angle = randf() * 2 * PI
+		var distance = randf_range(min_spawn_distance + 50.0, max_spawn_distance)
+		spawn_pos = player.global_position + Vector2(cos(angle), sin(angle)) * distance
+		if spawn_pos.distance_to(player.global_position) >= min_spawn_distance + 50.0:
+			return spawn_pos
+		attempts += 1
+	# Если не нашло подходящую позицию, возвращаем позицию с небольшим смешением
+	print("Warning: Coldn't find valid spawn position after ", max_attempts, "attempts!")
+	return player.global_position + Vector2(min_spawn_distance + 50.0, 0)
 
 func select_wave_type() -> void:
 	current_wave_type = wave_types[randi() % wave_types.size()]
@@ -101,14 +170,18 @@ func update_difficulty() -> void:
 		print("Difficulty increased! Wave size: ", wave_size, " Wave interval: ", wave_interval) 
 
 func highlight_spawn_zone() -> void:
-	if current_spawn_zone and current_spawn_zone.has_node("Indicator"):
-		var indicator = current_spawn_zone.get_node("Indicator")
-		indicator.visible = true
+	if current_spawn_zone:
+		if current_spawn_zone.has_node("Indicator"):
+			var indicator = current_spawn_zone.get_node("Indicator") as AnimatedSprite2D
+			indicator.visible = true
+			indicator.play("pulse")
 
 func  unhighlight_spawn_zone() -> void:
-	if current_spawn_zone and current_spawn_zone.has_node("Indicator"):
-		var indicator = current_spawn_zone.get_node("Indicator")
-		indicator.visible = false
+	if current_spawn_zone:
+		if current_spawn_zone.has_node("Indicator"):
+			var indicator = current_spawn_zone.get_node("Indicator") as AnimatedSprite2D
+			indicator.stop()
+			indicator.visible = false
 
 func  _on_enemy_defeated() -> void:
 	enemy_count -= 1

@@ -1,8 +1,53 @@
-[gd_scene load_steps=4 format=3 uid="uid://bu1iy82eewhy7"]
+[gd_scene load_steps=19 format=3 uid="uid://bu1iy82eewhy7"]
 
 [ext_resource type="Script" uid="uid://b1kfjgcwag5hw" path="res://scripts/options_menu.gd" id="1_hm4m4"]
 [ext_resource type="PackedScene" uid="uid://dir0p1j5ddicb" path="res://scenes/background.tscn" id="2_lfjc7"]
 [ext_resource type="Script" uid="uid://321xaegb2fsy" path="res://scripts/click_button.gd" id="3_3xsyx"]
+[ext_resource type="Texture2D" uid="uid://lbe6exiww24a" path="res://assets/images/SAVE.png" id="3_dhn0l"]
+[ext_resource type="Texture2D" uid="uid://cxx5a0del13wb" path="res://assets/images/DEFAULT.png" id="5_k61yy"]
+[ext_resource type="Texture2D" uid="uid://ccsi5es3kr4ha" path="res://assets/images/CLOSE.png" id="6_7txom"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_binsn"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2f1bn"]
+texture = ExtResource("3_dhn0l")
+region_rect = Rect2(309, 112, 150, 36)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i80p0"]
+texture = ExtResource("3_dhn0l")
+region_rect = Rect2(565, 112, 150, 36)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_smlwr"]
+texture = ExtResource("3_dhn0l")
+region_rect = Rect2(53, 112, 150, 36)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cvq0m"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wxicr"]
+texture = ExtResource("5_k61yy")
+region_rect = Rect2(256, 112, 256, 36)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_is2fr"]
+texture = ExtResource("5_k61yy")
+region_rect = Rect2(512, 112, 256, 36)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yqxia"]
+texture = ExtResource("5_k61yy")
+region_rect = Rect2(0, 112, 256, 36)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0t0xe"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mun1a"]
+texture = ExtResource("6_7txom")
+region_rect = Rect2(290, 112, 188, 36)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tpfov"]
+texture = ExtResource("6_7txom")
+region_rect = Rect2(546, 112, 188, 36)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8ladg"]
+texture = ExtResource("6_7txom")
+region_rect = Rect2(34, 112, 188, 36)
 
 [node name="Options_Menu" type="Control"]
 layout_mode = 3
@@ -227,28 +272,39 @@ theme_override_constants/separation = 5
 
 [node name="SaveButton" type="Button" parent="MarginContainer/VBoxContainer2"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 30)
+custom_minimum_size = Vector2(150, 36)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
+size_flags_vertical = 4
 theme_override_font_sizes/font_size = 25
-text = "Save"
+theme_override_styles/focus = SubResource("StyleBoxEmpty_binsn")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2f1bn")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_i80p0")
+theme_override_styles/normal = SubResource("StyleBoxTexture_smlwr")
 script = ExtResource("3_3xsyx")
 
 [node name="DefaultButton" type="Button" parent="MarginContainer/VBoxContainer2"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 30)
+custom_minimum_size = Vector2(256, 36)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_font_sizes/font_size = 25
-text = "Default"
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cvq0m")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wxicr")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_is2fr")
+theme_override_styles/normal = SubResource("StyleBoxTexture_yqxia")
 script = ExtResource("3_3xsyx")
 
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer2"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 30)
+custom_minimum_size = Vector2(188, 36)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
+size_flags_vertical = 4
 theme_override_font_sizes/font_size = 25
-text = "Close"
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0t0xe")
+theme_override_styles/hover = SubResource("StyleBoxTexture_mun1a")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_tpfov")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8ladg")
 script = ExtResource("3_3xsyx")

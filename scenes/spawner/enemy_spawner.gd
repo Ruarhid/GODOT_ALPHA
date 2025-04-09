@@ -4,9 +4,9 @@ class_name EnemySpawner
 @export var enemy_scenes: Array[PackedScene] = [] # Список сцен врагов
 @export var spawn_zones: Array[Node2D] = [] # Зоны спавна (задаются в иснпекторе)
 @export var max_enemies: int = 50  # Максимум врагов
-@export var wave_interval: float = 2.0 # Интервал между волнами
+@export var wave_interval: float = 5.0 # Интервал между волнами
 @export var wave_size: int = 10 # Количество врагов в волне
-@export var spawn_interval: float = 1.0  # Интервал спавна
+@export var spawn_interval: float = 10.0  # Интервал спавна
 @export var min_spawn_distance: float = 100.0 # Минимальное растояние от игрока
 @export var max_spawn_distance: float = 400.0
 

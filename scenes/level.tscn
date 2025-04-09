@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://u5cihdvdjh8q"]
+[gd_scene load_steps=6 format=4 uid="uid://u5cihdvdjh8q"]
 
 [ext_resource type="TileSet" uid="uid://dido0kbe7sar" path="res://assets/images/new_tile_set.tres" id="1_2q6dc"]
 [ext_resource type="Script" uid="uid://bfa1h1y5omfmi" path="res://scripts/level.gd" id="1_mx8sn"]
 [ext_resource type="PackedScene" uid="uid://cbfrp6p0kbogp" path="res://scenes/pause_menu.tscn" id="4_mx8sn"]
 [ext_resource type="PackedScene" uid="uid://bye8rmpmbq1cj" path="res://scenes/player/player.tscn" id="5_2r41h"]
 [ext_resource type="PackedScene" uid="uid://dajps7td0tueo" path="res://scenes/spawner/enemy_spawner.tscn" id="5_ppgk2"]
-[ext_resource type="Texture2D" uid="uid://7sht5yya4kjd" path="res://assets/images/spawn.png" id="6_2r41h"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_mx8sn")
@@ -30,17 +29,6 @@ offset_right = 133.0
 offset_bottom = 27.0
 size_flags_horizontal = 0
 
-[node name="EnemySpawner" parent="." node_paths=PackedStringArray("spawn_zones") instance=ExtResource("5_ppgk2")]
-spawn_zones = []
-max_enemies = 50
+[node name="EnemySpawner" parent="." instance=ExtResource("5_ppgk2")]
 wave_interval = 2.0
-wave_size = 10
 spawn_interval = 1.0
-min_spawn_distance = 100.0
-max_spawn_distance = 400.0
-wave_size_increase = 1
-wave_interval_decrease = 0.5
-difficulty_step = 5
-spawn_zone_count = 4
-spawn_zone_size = 50.0
-spawn_indicator_texture = ExtResource("6_2r41h")

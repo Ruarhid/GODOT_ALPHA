@@ -1,21 +1,69 @@
-[gd_scene load_steps=10 format=3 uid="uid://cpmqwrw3jdl6r"]
+[gd_scene load_steps=25 format=3 uid="uid://cpmqwrw3jdl6r"]
 
 [ext_resource type="Script" uid="uid://bh63q0s3sjbki" path="res://scripts/main_menu.gd" id="1_l6cm7"]
 [ext_resource type="PackedScene" uid="uid://dir0p1j5ddicb" path="res://scenes/background.tscn" id="2_bqqt6"]
 [ext_resource type="Script" uid="uid://321xaegb2fsy" path="res://scripts/click_button.gd" id="2_ekxnf"]
 [ext_resource type="Theme" uid="uid://di15y6ffa3prg" path="res://assets/images/new_theme.tres" id="3_wu84c"]
-[ext_resource type="Texture2D" uid="uid://b80thpf1qmgj5" path="res://assets/images/easy_settings.png" id="5_rtw2f"]
-[ext_resource type="StyleBox" uid="uid://dqe0ajwa6otca" path="res://assets/images/settings_style.tres" id="6_oa1go"]
+[ext_resource type="Texture2D" uid="uid://btth1dyhd6di0" path="res://assets/images/PLAY.png" id="4_oa1go"]
+[ext_resource type="Texture2D" uid="uid://baeu3lvrko72m" path="res://assets/images/SETTINGS.png" id="6_rtw2f"]
+[ext_resource type="Texture2D" uid="uid://d0fgleen3v17o" path="res://assets/images/ABOUT.png" id="7_tbmy8"]
+[ext_resource type="Texture2D" uid="uid://dcv8vl4lxf3gp" path="res://assets/images/EXIT.png" id="8_jk1qb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jk1qb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5dd4i"]
+texture = ExtResource("4_oa1go")
+region_rect = Rect2(307, 101, 154, 36)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lgwnu"]
+texture = ExtResource("4_oa1go")
+region_rect = Rect2(563, 101, 154, 36)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_flqon"]
+texture = ExtResource("4_oa1go")
+region_rect = Rect2(51, 101, 154, 36)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tbmy8"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jk1qb"]
-texture = ExtResource("5_rtw2f")
-region_rect = Rect2(524, 116, 170, 20)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oa1go"]
+texture = ExtResource("6_rtw2f")
+region_rect = Rect2(256, 83, 255, 36)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rtw2f"]
-texture = ExtResource("5_rtw2f")
-region_rect = Rect2(268, 116, 170, 20)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tbmy8"]
+texture = ExtResource("6_rtw2f")
+region_rect = Rect2(512, 83, 255, 36)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jk1qb"]
+texture = ExtResource("6_rtw2f")
+region_rect = Rect2(0, 83, 255, 36)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5dd4i"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rcqid"]
+texture = ExtResource("7_tbmy8")
+region_rect = Rect2(291, 112, 186, 36)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1ajci"]
+texture = ExtResource("7_tbmy8")
+region_rect = Rect2(547, 112, 186, 36)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7b55j"]
+texture = ExtResource("7_tbmy8")
+region_rect = Rect2(35, 112, 186, 36)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5pajh"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j7ex8"]
+texture = ExtResource("8_jk1qb")
+region_rect = Rect2(312, 112, 145, 36)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a8gd2"]
+texture = ExtResource("8_jk1qb")
+region_rect = Rect2(568, 112, 145, 36)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hstxw"]
+texture = ExtResource("8_jk1qb")
+region_rect = Rect2(56, 112, 145, 36)
 
 [node name="Main_Menu" type="Control"]
 layout_mode = 3
@@ -46,6 +94,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(186, 36)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -66,36 +115,51 @@ theme_override_constants/separation = 3
 
 [node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(110, 39)
+custom_minimum_size = Vector2(154, 36)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("3_wu84c")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jk1qb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5dd4i")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lgwnu")
+theme_override_styles/normal = SubResource("StyleBoxTexture_flqon")
 script = ExtResource("2_ekxnf")
 
 [node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(170, 20)
+custom_minimum_size = Vector2(255, 36)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/focus = SubResource("StyleBoxEmpty_tbmy8")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_jk1qb")
-theme_override_styles/hover = SubResource("StyleBoxTexture_rtw2f")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_jk1qb")
-theme_override_styles/normal = ExtResource("6_oa1go")
+theme_override_styles/hover = SubResource("StyleBoxTexture_oa1go")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_tbmy8")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jk1qb")
 script = ExtResource("2_ekxnf")
 
 [node name="AboutButton" type="Button" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(186, 36)
 layout_mode = 2
-text = "About"
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5dd4i")
+theme_override_styles/hover = SubResource("StyleBoxTexture_rcqid")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_1ajci")
+theme_override_styles/normal = SubResource("StyleBoxTexture_7b55j")
 script = ExtResource("2_ekxnf")
 
 [node name="ExitButton" type="Button" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(145, 36)
 layout_mode = 2
-text = "Exit"
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5pajh")
+theme_override_styles/hover = SubResource("StyleBoxTexture_j7ex8")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_a8gd2")
+theme_override_styles/normal = SubResource("StyleBoxTexture_hstxw")
 script = ExtResource("2_ekxnf")
 
 [node name="TextureButton" type="TextureButton" parent="MarginContainer/VBoxContainer"]

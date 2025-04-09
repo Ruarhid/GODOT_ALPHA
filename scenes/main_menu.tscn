@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cpmqwrw3jdl6r"]
+[gd_scene load_steps=27 format=3 uid="uid://cpmqwrw3jdl6r"]
 
 [ext_resource type="Script" uid="uid://bh63q0s3sjbki" path="res://scripts/main_menu.gd" id="1_l6cm7"]
 [ext_resource type="PackedScene" uid="uid://dir0p1j5ddicb" path="res://scenes/background.tscn" id="2_bqqt6"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://baeu3lvrko72m" path="res://assets/images/SETTINGS.png" id="6_rtw2f"]
 [ext_resource type="Texture2D" uid="uid://d0fgleen3v17o" path="res://assets/images/ABOUT.png" id="7_tbmy8"]
 [ext_resource type="Texture2D" uid="uid://dcv8vl4lxf3gp" path="res://assets/images/EXIT.png" id="8_jk1qb"]
+[ext_resource type="Texture2D" uid="uid://b5secutxnqapa" path="res://assets/images/LABEL KOLOBOK.png" id="9_jk1qb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jk1qb"]
 
@@ -65,6 +66,10 @@ region_rect = Rect2(568, 112, 145, 36)
 texture = ExtResource("8_jk1qb")
 region_rect = Rect2(56, 112, 145, 36)
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5pajh"]
+texture = ExtResource("9_jk1qb")
+region_rect = Rect2(18, 112, 265, 32)
+
 [node name="Main_Menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -77,24 +82,7 @@ script = ExtResource("1_l6cm7")
 [node name="Background" parent="." instance=ExtResource("2_bqqt6")]
 layout_mode = 1
 
-[node name="Title" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -128.0
-offset_top = 100.0
-offset_right = 128.0
-offset_bottom = 213.833
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 40
-text = "Игра епта!!!!
-"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="MarginContainer" type="MarginContainer" parent="."]
-custom_minimum_size = Vector2(186, 36)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -162,9 +150,6 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_a8gd2")
 theme_override_styles/normal = SubResource("StyleBoxTexture_hstxw")
 script = ExtResource("2_ekxnf")
 
-[node name="TextureButton" type="TextureButton" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-
 [node name="VersionLabel" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 2
@@ -174,3 +159,17 @@ offset_top = -22.3333
 offset_right = 98.0
 grow_vertical = 0
 text = "version 0.0.0"
+
+[node name="Title" type="Label" parent="."]
+custom_minimum_size = Vector2(265, 32)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -356.0
+offset_top = 98.0
+offset_right = 356.0
+offset_bottom = 248.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_5pajh")

@@ -31,4 +31,3 @@ size_flags_horizontal = 0
 
 [node name="EnemySpawner" parent="." instance=ExtResource("5_ppgk2")]
 wave_interval = 2.0
-spawn_interval = 1.0

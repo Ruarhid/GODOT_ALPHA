@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://b18l8y3o0e1uw"]
+
+[ext_resource type="Texture2D" uid="uid://q4qjsfu6lfec" path="res://assets/images/03.png" id="1_dqlrw"]
+[ext_resource type="Script" uid="uid://cft10ug8pgnqy" path="res://scenes/spawner/portal/portal.gd" id="1_khku7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khku7"]
+atlas = ExtResource("1_dqlrw")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_noi4t"]
+atlas = ExtResource("1_dqlrw")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ys4ut"]
+atlas = ExtResource("1_dqlrw")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qarob"]
+atlas = ExtResource("1_dqlrw")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0qgx"]
+atlas = ExtResource("1_dqlrw")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i3o4d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khku7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_noi4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ys4ut")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qarob")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d0qgx")
+}],
+"loop": true,
+"name": &"pulse",
+"speed": 7.0
+}]
+
+[node name="Portal" type="Node2D"]
+script = ExtResource("1_khku7")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+sprite_frames = SubResource("SpriteFrames_i3o4d")
+animation = &"pulse"
+autoplay = "pulse"
+
+[node name="SpawnDelay" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.0
+one_shot = true

@@ -7,6 +7,7 @@
 [node name="FastMouse" instance=ExtResource("1_40aen")]
 script = ExtResource("2_c2le6")
 max_health = 30
+experience_drop = 20
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(5.96046e-08, -16)

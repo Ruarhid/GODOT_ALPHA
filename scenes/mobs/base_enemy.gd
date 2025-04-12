@@ -13,6 +13,10 @@ class_name BaseEnemy
 @export var attack_range: float = 70.0  # Дистанция для нанесения урона
 @export var attack_cooldown: float = 1.0
 
+# Дроп опыта
+@export var experience_drop: int = 10 # Количество опыта за врага
+@export var experience_drop_chance: float = 0.8 # Шанс дропа (80%)
+
 # Внитренние переменные
 var health: int
 var target: Node2D = null
@@ -28,7 +32,7 @@ func _ready() -> void:
 	target = get_tree().get_first_node_in_group("player")
 	if not target:
 		print("No player found!")
-	#damage_area.body_entered.connect(_on_damage_area_entered)
+	print("Emeny initialized with health ", health)
 
 func _physics_process(delta: float) -> void:
 	if health <= 0 or not target:
@@ -63,9 +67,6 @@ func calculate_move_vector(delta: float) -> Vector2:
 	var separation = calculate_separation()
 	# Финальный вектор движения
 	return desired_velocity + (separation * separation_force * delta)
-	#var final_velocity = desired_velocity + (separation * separation_force * delta)
-	#print("Distance: ", distance, "Separation: ", separation)
-	#return final_velocity
 
 func calculate_separation() -> Vector2:
 	var separation = Vector2.ZERO
@@ -108,8 +109,10 @@ func attack_player() -> void:
 
 # МЕТОДЫ ЗДОРОВЬЯ И УРОНА
 func take_damage(amount: int) -> void:
+	print("Enemy took damage: ", amount, " Current health ", health)
 	health = clamp(health - amount, 0, max_health)
 	if health <= 0:
+		print("Emeny health reached 0, calling die()")
 		die()
 	else:
 		on_damage_taken()
@@ -125,8 +128,15 @@ func on_attack_performed() -> void: # Действие при атаке
 	pass
 
 func die() -> void:
+	print("Enemy die() called")
 	on_death()
 	queue_free()
 
 func on_death() -> void: # Действия после смерти
-	pass
+	print("Enemy on_death() called, attempting to drop flour")
+	if randf() <= experience_drop_chance:
+		print("Дропаем опыт: ", experience_drop, " в позиции ", global_position)
+		var flour = preload("res://scenes/experience/experience.tscn").instantiate()
+		flour.experience_value = experience_drop
+		flour.global_position = global_position
+		get_parent().call_deferred("add_child", flour)

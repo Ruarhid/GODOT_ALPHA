@@ -6,15 +6,21 @@ class_name Player
 @export var max_health: int = 100
 @export var attack_cooldown: float = 0.5
 @export var projectile_scene: PackedScene = preload("res://scenes/player/attacks/projectile.tscn")
+@export var experience_per_level: int = 100 # Сколько опыта для уровня
+@export var experience_growth: float = 1.2 # Множитель роста опыта
+
 var health: int = max_health
 var damage_bar_timer: float = 0.0
 var attack_timer: float = 0.0
 var last_direction: Vector2 = Vector2.DOWN # Для направления анимации
+var experience: int = 0
+var level: int = 1
 const DAMAGE_BAR_DURATION: float = 2.0  # Время видимости 2 бара
 
 @onready var animated_sprite: AnimatedSprite2D = %AnimatedSprite2D
 @onready var main_health_bar: ProgressBar = %MainHealthBar #get_node("res://scenes/player/attacks/projectile.tscn")
 @onready var damage_health_bar: ProgressBar = %DamageHealthBar
+@onready var experience_bar: ProgressBar = %ExperienceBar
 
 func  _ready() -> void:
 	add_to_group("player")  # Для идентификации другими объектами
@@ -25,6 +31,12 @@ func  _ready() -> void:
 	damage_health_bar.max_value = max_health
 	damage_health_bar.value = health
 	damage_health_bar.visible = false  # Скрыт до урона
+	
+	experience_bar.max_value =  experience_per_level
+	experience_bar.value = 0
+	experience_bar.visible = true
+	set_meta("projectile_damage", 10)
+	print("Player initialized")
 
 func _physics_process(delta: float) -> void:
 	var direction = get_input()
@@ -66,6 +78,7 @@ func attack() -> void:
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	var projectile = projectile_scene.instantiate()
 	projectile.global_position = global_position
+	projectile.damage = get_meta("projectile_damage", 10)
 	
 	if enemies.size() > 0:
 		# Находим ближайшего врага
@@ -84,13 +97,44 @@ func attack() -> void:
 		projectile.direction = last_direction
 	get_parent().add_child(projectile)
 
-func  take_damage(amount: int) -> void:
+func take_damage(amount: int) -> void:
 	health = clamp(health - amount, 0, max_health)
 	damage_health_bar.value = health
 	damage_health_bar.visible = true
 	damage_bar_timer = DAMAGE_BAR_DURATION
 	if health <= 0:
 		die()
+
+func add_experience(amount: int) -> void:
+	print("Adding experience: ", amount, " Current XP: ", experience + amount)
+	experience += amount
+	var required_experience = experience_per_level * pow(experience_growth, level - 1)
+	experience_bar.max_value = required_experience
+	experience_bar.value = experience
+	if experience >= required_experience:
+		level_up()
+
+func level_up() -> void:
+	level += 1
+	experience = 0
+	experience_bar.value = 0
+	experience_bar.max_value = experience_per_level * pow(experience_growth, level - 1)
+	print("Level up!  New level: ", level)
+	show_upgrade_menu()
+
+func update_experience_ui() -> void:
+	pass
+
+func show_upgrade_menu() -> void:
+	var upgrade_menu = get_tree().get_first_node_in_group("upgrade_menu")
+	if upgrade_menu:
+		if not upgrade_menu.visible:
+			print("Calling show_menu on UpgradeMenu")
+			upgrade_menu.show_menu()
+		else:
+			print("UpgradeMenu already visible, skipping")
+	else:
+		print("Upgrade menu not found!")
 
 func update_health_bars(delta: float) -> void:
 	main_health_bar.value = health
@@ -100,5 +144,6 @@ func update_health_bars(delta: float) -> void:
 			damage_health_bar.visible = false
 
 func die() -> void:
-	print("Player died!")
+	pass
+	#print("Player died!")
 	#queue_free()

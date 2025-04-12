@@ -15,8 +15,8 @@ func update_state() -> void:
 	# Можно добавить анимацию или другое поведение
 	pass
 
-func on_damage_taken() -> void:
-	print("Mouse took damage! Health: ", health)
+#func on_damage_taken() -> void:
+	#super.die()
 
 func  on_death() -> void:
-	print("Mouse defeated at: ", global_position)
+	super.on_death()

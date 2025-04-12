@@ -24,6 +24,7 @@ class_name EnemySpawner
 
 # Ссылки на узлы
 @onready var spawn_timer: Timer = %SpawnTimer
+@onready var spawn_delay_timer: Timer = %SpawnDelayTimer
 
 # Типы волн
 enum WaveType { NORMAL, FAST, MIXED}
@@ -46,7 +47,13 @@ func _ready() -> void:
 	if not spawn_timer:
 		print("Ошибка: SpawnTimer не найдены!")
 		return
-	
+	if not spawn_delay_timer:
+		var timer = Timer.new()
+		timer.name = "SpawnDelayTimer"
+		add_child(timer)
+		spawn_delay_timer = timer
+	spawn_timer.process_mode = Node.PROCESS_MODE_PAUSABLE
+	spawn_delay_timer.process_mode = Node.PROCESS_MODE_PAUSABLE
 	spawn_timer.wait_time = wave_interval # Начинаем с паузы перед первой волной
 	spawn_timer.timeout.connect(_on_timer_timeout)
 	spawn_timer.start()
@@ -72,7 +79,9 @@ func _on_portal_spawn_enemies(portal_position: Vector2) -> void:
 	# Спавн врагов из позиции портала
 	for i in range(enemies_to_spawn):
 		_spawn_single_enemy(portal_position)
-		await  get_tree().create_timer(spawn_interval).timeout # Задержака между спавнами
+		spawn_delay_timer.wait_time = spawn_interval
+		spawn_delay_timer.start()
+		await  spawn_delay_timer.timeout
 	# Удаляем портал после спавна врагов
 	if current_portal:
 		current_portal.queue_free()

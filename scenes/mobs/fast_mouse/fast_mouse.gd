@@ -12,8 +12,8 @@ func update_state() -> void:
 	pass
 	#print("FastMause is chasing!")
 
-func on_damage_taken() -> void:
-	print("FastMouse took damage! Health: ", health)
+#func on_damage_taken() -> void:
+	#print("FastMouse took damage! Health: ", health)
 
 func on_death() -> void:
-	print("FastMouse defeated! ")
+	super.on_death()

@@ -11,3 +11,6 @@ wave_interval = 10.0
 
 [node name="SpawnTimer" type="Timer" parent="."]
 unique_name_in_owner = true
+
+[node name="SpawnDelayTimer" type="Timer" parent="."]
+unique_name_in_owner = true

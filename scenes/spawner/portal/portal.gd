@@ -8,6 +8,7 @@ signal spawn_enemies(position: Vector2) # Сигнал для спавна вр�
 
 func _ready() -> void:
 	sprite.play("pulse")
+	spawn_delay.process_mode = Node.PROCESS_MODE_PAUSABLE
 	spawn_delay.timeout.connect(_on_spawn_delay_timeout)
 	spawn_delay.start()
 

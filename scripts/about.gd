@@ -12,4 +12,4 @@ func _connect_signal() -> void:
 	close_button.pressed.connect(_on_close_pressed)
 
 func _on_close_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	get_tree().change_scene_to_file("res://scenes/menu/main_menu.tscn")

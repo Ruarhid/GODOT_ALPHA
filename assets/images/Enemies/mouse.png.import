@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djug7t7q4yb1d"
-path="res://.godot/imported/arena.png-f00b593ba5656d46f8e9b693a6089c24.ctex"
+uid="uid://bya1t4w66ppl3"
+path="res://.godot/imported/mouse.png-201333e440a38a358f5bcdc45eebc4a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/arena.png"
-dest_files=["res://.godot/imported/arena.png-f00b593ba5656d46f8e9b693a6089c24.ctex"]
+source_file="res://assets/images/Enemies/mouse.png"
+dest_files=["res://.godot/imported/mouse.png-201333e440a38a358f5bcdc45eebc4a9.ctex"]
 
 [params]
 

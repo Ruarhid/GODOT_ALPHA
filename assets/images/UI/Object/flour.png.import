@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dnqmyida4d31n"
-path="res://.godot/imported/PLAY_button_demo.png-03d6a8e372ad2154efd2c9be12094a84.ctex"
+uid="uid://cf5y3eqheg1r0"
+path="res://.godot/imported/flour.png-04ac1d54ff07c87cf4d0b43ac09db959.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/PLAY_button_demo.png"
-dest_files=["res://.godot/imported/PLAY_button_demo.png-03d6a8e372ad2154efd2c9be12094a84.ctex"]
+source_file="res://assets/images/UI/Object/flour.png"
+dest_files=["res://.godot/imported/flour.png-04ac1d54ff07c87cf4d0b43ac09db959.ctex"]
 
 [params]
 

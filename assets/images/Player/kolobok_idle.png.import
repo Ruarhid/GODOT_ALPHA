@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0fgleen3v17o"
-path="res://.godot/imported/ABOUT.png-8e8d5f25b35527bc99f31bf1ec706518.ctex"
+uid="uid://c32etvpin3rkp"
+path="res://.godot/imported/kolobok_idle.png-f54e9677bdd482ced5b29cb5216ad58c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/ABOUT.png"
-dest_files=["res://.godot/imported/ABOUT.png-8e8d5f25b35527bc99f31bf1ec706518.ctex"]
+source_file="res://assets/images/Player/kolobok_idle.png"
+dest_files=["res://.godot/imported/kolobok_idle.png-f54e9677bdd482ced5b29cb5216ad58c.ctex"]
 
 [params]
 

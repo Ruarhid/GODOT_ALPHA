@@ -17,6 +17,6 @@ func _ready() -> void:
 	print("Pause Menu type: ", pause_menu.get_class())
 	print("Upgrade Menu type: ", upgrade_menu.get_class())
 
-func _process(delta: float) -> void:
-	if upgrade_menu.visible and not get_tree().paused:
-		print("Warning: UpgradeMenu visible while game unpaused! Visible state: ", upgrade_menu.visible)
+#func _process(delta: float) -> void:
+	#if upgrade_menu.visible and not get_tree().paused:
+		#print("Warning: UpgradeMenu visible while game unpaused! Visible state: ", upgrade_menu.visible)

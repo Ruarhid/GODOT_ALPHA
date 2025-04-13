@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lbe6exiww24a"
-path="res://.godot/imported/SAVE.png-aa4f83c3fa60258b2d253a1a89818ef9.ctex"
+uid="uid://bhfwflaxnr2bq"
+path="res://.godot/imported/kolobok_run.png-414a0632c0ec9e6cba37ea2258cc2ed8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/SAVE.png"
-dest_files=["res://.godot/imported/SAVE.png-aa4f83c3fa60258b2d253a1a89818ef9.ctex"]
+source_file="res://assets/images/Player/kolobok_run.png"
+dest_files=["res://.godot/imported/kolobok_run.png-414a0632c0ec9e6cba37ea2258cc2ed8.ctex"]
 
 [params]
 

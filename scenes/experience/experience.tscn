@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bga1mlgkf13em"]
 
-[ext_resource type="Texture2D" uid="uid://cf5y3eqheg1r0" path="res://assets/images/flour.png" id="1_da7nl"]
+[ext_resource type="Texture2D" uid="uid://cf5y3eqheg1r0" path="res://assets/images/UI/Object/flour.png" id="1_da7nl"]
 [ext_resource type="Script" uid="uid://syeuxbaorve7" path="res://scenes/experience/experience.gd" id="1_ut7ky"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_da7nl"]

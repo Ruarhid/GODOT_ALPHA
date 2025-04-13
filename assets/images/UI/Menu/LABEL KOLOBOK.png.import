@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5secutxnqapa"
-path="res://.godot/imported/LABEL KOLOBOK.png-b0a264ba02dfee3d3d1d688e8a88f46a.ctex"
+path="res://.godot/imported/LABEL KOLOBOK.png-f36140317644cc6653986cf3c1581a5e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/LABEL KOLOBOK.png"
-dest_files=["res://.godot/imported/LABEL KOLOBOK.png-b0a264ba02dfee3d3d1d688e8a88f46a.ctex"]
+source_file="res://assets/images/UI/Menu/LABEL KOLOBOK.png"
+dest_files=["res://.godot/imported/LABEL KOLOBOK.png-f36140317644cc6653986cf3c1581a5e.ctex"]
 
 [params]
 

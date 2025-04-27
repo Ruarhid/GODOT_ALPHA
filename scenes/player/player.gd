@@ -68,7 +68,7 @@ func get_input() -> Vector2:
 
 func update_animation(direction: Vector2) -> void:
 	if direction != Vector2.ZERO:
-		animated_sprite.flip_h = direction.x < 0  # Повотор при движении влево
+		animated_sprite.flip_h = direction.x > 0  # Повотор при движении влево
 		animated_sprite.play("run")
 	else:
 		animated_sprite.flip_h = last_direction.x < 0

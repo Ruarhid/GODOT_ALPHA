@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=4 uid="uid://u5cihdvdjh8q"]
 
-[ext_resource type="TileSet" uid="uid://dido0kbe7sar" path="res://assets/images/new_tile_set.tres" id="1_2q6dc"]
-[ext_resource type="Script" uid="uid://bfa1h1y5omfmi" path="res://scripts/level.gd" id="1_mx8sn"]
-[ext_resource type="PackedScene" uid="uid://cbfrp6p0kbogp" path="res://scenes/pause_menu.tscn" id="4_mx8sn"]
+[ext_resource type="TileSet" uid="uid://dido0kbe7sar" path="res://assets/images/Texture/new_tile_set.tres" id="1_2q6dc"]
+[ext_resource type="Script" uid="uid://bfa1h1y5omfmi" path="res://scenes/level/level.gd" id="1_mx8sn"]
+[ext_resource type="PackedScene" uid="uid://cbfrp6p0kbogp" path="res://scenes/menu/pause_menu.tscn" id="4_mx8sn"]
 [ext_resource type="PackedScene" uid="uid://bye8rmpmbq1cj" path="res://scenes/player/player.tscn" id="5_2r41h"]
 [ext_resource type="PackedScene" uid="uid://k3fwnun8ixrw" path="res://scenes/experience/upgrade_menu/upgrade_menu.tscn" id="5_klq6b"]
 [ext_resource type="PackedScene" uid="uid://dajps7td0tueo" path="res://scenes/spawner/enemy_spawner.tscn" id="5_ppgk2"]

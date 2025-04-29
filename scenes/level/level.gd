@@ -11,7 +11,8 @@ func _ready() -> void:
 	process_mode = PROCESS_MODE_PAUSABLE
 	enemy_spawner.enemy_scenes = [
 		preload("res://scenes/mobs/mouse/mouse.tscn"),
-		preload("res://scenes/mobs/fast_mouse/fast_mouse.tscn")
+		preload("res://scenes/mobs/fast_mouse/fast_mouse.tscn"),
+		preload("res://scenes/mobs/new_enemy/new_enemy.tscn")
 	]
 	enemy_spawner.start_spawning() # Запуск спавна
 	print("Pause Menu type: ", pause_menu.get_class())

@@ -29,7 +29,7 @@ class_name EnemySpawner
 # Типы волн
 enum WaveType { NORMAL, FAST, MIXED}
 var wave_types: Array[Dictionary] = [
-	{"type": WaveType.NORMAL, "enemies": [0]}, # Только Mouse(индекс 0 в enemy_scenes
+	{"type": WaveType.NORMAL, "enemies": [0, 2]}, # Только Mouse(индекс 0 в enemy_scenes
 	{"type": WaveType.FAST, "enemies": [1]}, # Только FastMous (индекс 1)
 	{"type": WaveType.MIXED, "enemies": [0, 1]} # Смешенная волна
 ]

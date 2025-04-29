@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ci7hlm2k60ojo"]
+
+[ext_resource type="PackedScene" uid="uid://c6n0n41tk51qm" path="res://scenes/mobs/base_enemy.tscn" id="1_bg0wq"]
+[ext_resource type="Texture2D" uid="uid://c32etvpin3rkp" path="res://assets/images/Player/kolobok_idle.png" id="2_rvw1c"]
+
+[node name="new_enemy" instance=ExtResource("1_bg0wq")]
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(-1.90735e-06, 0)
+scale = Vector2(0.4664, 0.484375)
+texture = ExtResource("2_rvw1c")
+region_enabled = true
+region_rect = Rect2(0, 0, 65, 64)

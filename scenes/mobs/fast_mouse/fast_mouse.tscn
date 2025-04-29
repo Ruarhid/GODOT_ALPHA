@@ -2,7 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://c6n0n41tk51qm" path="res://scenes/mobs/base_enemy.tscn" id="1_40aen"]
 [ext_resource type="Script" uid="uid://djrmnjvq5f3np" path="res://scenes/mobs/fast_mouse/fast_mouse.gd" id="2_c2le6"]
-[ext_resource type="Texture2D" uid="uid://bea7mcw86qswd" path="res://scenes/weapons/default_atack/default_attack.png" id="3_47a3u"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_c2le6"]
+load_path = "res://.godot/imported/default_attack.png-4c593d990d43dac90c4ce3c2b191b124.ctex"
 
 [node name="FastMouse" instance=ExtResource("1_40aen")]
 script = ExtResource("2_c2le6")
@@ -10,6 +12,8 @@ max_health = 30
 experience_drop = 20
 
 [node name="Sprite2D" parent="." index="1"]
-position = Vector2(5.96046e-08, -16)
 scale = Vector2(0.169922, 0.169922)
-texture = ExtResource("3_47a3u")
+texture = SubResource("CompressedTexture2D_c2le6")
+
+[node name="CollisionShape2D" parent="DamageArea" index="0"]
+scale = Vector2(0.77, 0.77)

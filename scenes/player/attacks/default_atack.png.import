@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bea7mcw86qswd"
-path="res://.godot/imported/default_attack.png-4c593d990d43dac90c4ce3c2b191b124.ctex"
+uid="uid://x6wl01xqexpa"
+path="res://.godot/imported/default_atack.png-f0f3cf2659fc791848fb113e265d7035.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/weapons/default_atack/default_attack.png"
-dest_files=["res://.godot/imported/default_attack.png-4c593d990d43dac90c4ce3c2b191b124.ctex"]
+source_file="res://scenes/player/attacks/default_atack.png"
+dest_files=["res://.godot/imported/default_atack.png-f0f3cf2659fc791848fb113e265d7035.ctex"]
 
 [params]
 

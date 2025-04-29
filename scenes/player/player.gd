@@ -1,4 +1,5 @@
 extends CharacterBody2D
+
 class_name Player
 
 # Настраиваемые параметры
@@ -23,6 +24,7 @@ const DAMAGE_BAR_DURATION: float = 2.0  # Время видимости 2 бар
 @onready var experience_bar: ProgressBar = %ExperienceBar
 
 func  _ready() -> void:
+	spec_update()
 	add_to_group("player")  # Для идентификации другими объектами
 	main_health_bar.max_value = max_health
 	main_health_bar.value = health
@@ -52,18 +54,18 @@ func _physics_process(delta: float) -> void:
 
 func get_input() -> Vector2:
 	var direction = Vector2.ZERO
-	if Input.is_action_pressed("move_left"):
-		direction.x -= 1
-	if Input.is_action_pressed("move_right"):
-		direction.x += 1
-	if Input.is_action_pressed("move_up"):
-		direction.y -= 1
-	if Input.is_action_pressed("move_down"):
-		direction.y += 1
-		
+	
+	# Получаем значения осей джойстика
+	direction.x = Input.get_axis("ui_left", "ui_right")
+	direction.y = Input.get_axis("ui_up", "ui_down")
+	
+	# Нормализуем вектор, чтобы избежать ускорения при диагональном движении
 	direction = direction.normalized()
+	
+	# Сохраняем последнюю ненулевую дирекцию
 	if direction != Vector2.ZERO:
 		last_direction = direction
+	
 	return direction
 
 func update_animation(direction: Vector2) -> void:
@@ -76,26 +78,25 @@ func update_animation(direction: Vector2) -> void:
 
 func attack() -> void:
 	var enemies = get_tree().get_nodes_in_group("enemies")
-	var projectile = projectile_scene.instantiate()
-	projectile.global_position = global_position
-	projectile.damage = get_meta("projectile_damage", 10)
+	if enemies.is_empty():
+		return
 	
-	if enemies.size() > 0:
-		# Находим ближайшего врага
-		var closest_enemy = null
-		var min_distance = INF
-		for enemy in enemies:
-			var distance = global_position.distance_to(enemy.global_position)
-			if distance < min_distance:
-				min_distance = distance
-				closest_enemy = enemy
-		if closest_enemy:
-			projectile.direction = (closest_enemy.global_position - global_position).normalized()
-		else:
-			projectile.direction = last_direction
-	else:
-		projectile.direction = last_direction
-	get_parent().add_child(projectile)
+	# Find closest enemy within 200 units
+	var closest_enemy = null
+	var min_distance = 200
+	
+	for enemy in enemies:
+		var distance = global_position.distance_to(enemy.global_position)
+		if distance < min_distance:
+			min_distance = distance
+			closest_enemy = enemy
+	
+	if closest_enemy:
+		var projectile = projectile_scene.instantiate()
+		projectile.global_position = global_position
+		projectile.damage = get_meta("projectile_damage", 10)
+		projectile.direction = (closest_enemy.global_position - global_position).normalized()
+		get_parent().add_child(projectile)
 
 func take_damage(amount: int) -> void:
 	health = clamp(health - amount, 0, max_health)
@@ -147,3 +148,6 @@ func die() -> void:
 	pass
 	#print("Player died!")
 	#queue_free()
+
+func spec_update() -> void:
+	$VBoxContainer/health.text = "Health: %s" % max_health

@@ -4,7 +4,7 @@ class_name BaseEnemy
 
 # Настраиваемые параметры движения
 @export var speed: float = 100.0
-@export var min_distance: float = 55.0 # Минимальная дистанция до игрока
+@export var min_distance: float = 50.0 # Минимальная дистанция до игрока
 @export var separation_force: float = 300 # Сила отталкивания от других врагов
 
 # Настраиваемые параметры боя
